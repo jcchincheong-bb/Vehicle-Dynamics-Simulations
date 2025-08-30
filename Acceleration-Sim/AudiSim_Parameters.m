@@ -1,0 +1,16 @@
+m = 2145; % [kg]
+T = 545;
+xd_max = 500685/10000;
+xd_goal = 277165/10000;
+t_goal = 67/10;
+kd = 8724/1000;
+xd0 = 0;
+d = 4953/10000;
+Crr = 65/10000;
+i = 01/10;
+g=981/100;
+n_max = 1675516082/1000000; % max angular velocity of the motor (assumed constant at 16000 rpm)
+c1=86/100;
+c2=33078/1000;
+c3=36/100;
+J = 1;  % MoI of each wheel

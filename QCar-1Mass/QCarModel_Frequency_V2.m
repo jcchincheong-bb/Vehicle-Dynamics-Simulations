@@ -1,0 +1,60 @@
+%% Programm
+
+close all
+clear all
+m = 400;  % mass
+c = 20000; % stiffness
+d = 1500; % damping
+F = 1000; % external load
+g = 981/100; % gravity
+z0 = m*g/c; % initial displacement
+freq={0,50*(2*pi)};
+
+%% Bode Plot
+sys = tf([d,c,0,0],[m,d,c]);
+
+figure(1)
+bode(sys,freq)
+xlabel('Frequency [rad/s]')
+title('Bode Plot of Body Acceleration Transfer Function due to Road Excitation')
+
+%% Variation of Mass
+mass=100:100:1000;
+
+for h=1:length(mass)
+    m = mass(h);  % update the mass
+    leg(h)= mass(h) + " kg"; % storing mass for legend
+    sys_acc(h)=tf([d,c,0,0],[m,d,c]); % finding and storing transfer function
+end
+
+figure(2)
+bode(sys_acc(1),sys_acc(2),sys_acc(3),sys_acc(4),sys_acc(5),sys_acc(6),sys_acc(7),sys_acc(8),sys_acc(9),sys_acc(10),freq)
+acc_leg = legend(leg);
+acc_leg.Location = 'southeast';
+title('Bode Plot of Body Acceleration as body mass varies')
+figure
+
+%% Manual Bode
+A = @(w)(sqrt(((c*w^2)^2+(d*w^3)^2)/((c-m*w^2)^2+(d*w)^2)));
+phi = @(w)(angle((-c*w^2-d*(w^3)*1i)/(c-m*w^2+d*w*1i))); % Using angle since arctan doesn't work well
+
+w = linspace(1,50*2*pi,1000);
+
+for k=1:length(w)
+A_val(k) = feval(A,w(k)); phi_val(k) = phi(w(k));
+end
+
+figure(3)
+
+subplot(2,1,1)
+loglog(w,A_val)
+xlabel('Frequency [rad/s]')
+ylabel('Amplitude')
+title('Bodeplot') 
+
+subplot(2,1,2)
+loglog(w,phi_val)
+xlabel('Frequency [rad/s]')
+ylabel('Phase')
+
+
