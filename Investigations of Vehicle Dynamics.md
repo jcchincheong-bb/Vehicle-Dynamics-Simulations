@@ -450,4 +450,163 @@ Similar to 3.0.0, this section extends the Quarter Car Model to the dual mass va
 ### 3.1.1.? Transfer Functions
 
 $$
-G_{B_{acc}}(s)=\frac{k_W k_Bs^4+(k_W c_B+k_B c_W)s^3+c_W c_Bs^2}{m_{B}m_{W}s^{4}+[m_{B}(k_{B}+k_{W})+m_{W}k_{B}]s^{3}+[m_{B}(c_{B}+c_{W})+m_{W}c_{B}+k_{B}k_{W}]s^{2}+[k_{B}c_{W}+k_{W}c_{B}]s^3+
+G_{B_{acc}}(s)=\frac{k_W k_Bs^4+(k_W c_B+k_B c_W)s^3+c_W c_Bs^2}{m_{B}m_{W}s^{4}+[m_{B}(k_{B}+k_{W})+m_{W}k_{B}]s^{3}+[m_{B}(c_{B}+c_{W})+m_{W}c_{B}+k_{B}k_{W}]s^{2}+[k_{B}c_{W}+k_{W}c_{B}]s^{3}+c_{B}c_{W}}
+$$
+
+$$
+G_{W_{acc}}(s)=\frac{m_B k_Ws^5+(k_W k_B+m_B c_W)s^4+(k_Bc_W+k_W c_B)s^3+c_Bc_Ws^2}{m_{B}m_{W}s^{4}+[m_{B}(k_{B}+k_{W})+m_{W}k_{B}]s^{3}+[m_{B}(c_{B}+c_{W})+m_{W}c_{B}+k_{B}k_{W}]s^{2}+[k_{B}c_{W}+k_{W}c_{B}]s^{3}+c_{B}c_{W}}
+$$
+
+![image.png](assets/image%2057.png)
+
+### 3.1.2.? Frequency Domain Characteristics
+
+![image.png](assets/image%2058.png)
+
+### 3.1.2.? Wheel Mass Variation
+
+![image.png](assets/image%2059.png)
+
+![image.png](assets/image%2060.png)
+
+### 3.1.2.? Tire Stiffness Variation
+
+![image.png](assets/image%2061.png)
+
+![image.png](assets/image%2062.png)
+
+![tirestiffness_var_acc_100-200kN-m.png](assets/tirestiffness_var_acc_100-200kN-m.png)
+
+![tirestiffness_var_force_100-200kN-m.png](assets/tirestiffness_var_force_100-200kN-m.png)
+
+### 3.1.2.? Body Stiffness Variation
+
+![image.png](assets/image%2063.png)
+
+![image.png](assets/image%2064.png)
+
+### 3.1.2.? Body Damping
+
+![image.png](assets/image%2065.png)
+
+![image.png](assets/image%2066.png)
+
+![image.png](assets/image%2067.png)
+
+![image.png](assets/image%2068.png)
+
+### 3.1.2.? Body Mass Variation
+
+![image.png](assets/image%2069.png)
+
+![image.png](assets/image%2070.png)
+
+![image.png](assets/image%2071.png)
+
+![image.png](assets/image%2072.png)
+
+### 3.1.3.? Discussion of Comfort and Safety
+
+|  | Comfort | Safety | Conclusion |
+| --- | --- | --- | --- |
+| Wheel Mass | Improved for higher mass at frequency above wheel eigenfrequency | Less safe for higher mass at freq.  between the eigenfrequencies | Wheel mass needs to be **balanced**  |
+| Tire Stiffness | Improved for lower stiffness for frequency above wheel eigenfrequency | Improved for lower stiffness at frequency above wheel eigenfrequency | Tire should be **soft** (but **hard enough to transfer** longitudinal and lateral **forces** and be durable) |
+| Body Stiffness | Improved for lower stiffness near the body eigenfrequency | Improved for lower stiffness near the body eigenfrequency | Keep the stiffness **low** but **high enough to keep the wheels on the ground** and doesn't get completely compressed |
+| Body Damping | Improved for higher damping at body eigenfrequency
+Less for higher damping at frequencies above body eigenfrequency $\omega>\omega_B$ | Improved for higher damping at the two eigenfrequencies 
+Less safe for higher damping between the eigenfrequencies  | We need to **consider** the excitation **frequency** |
+| Body Mass | Improved for higher body mass at frequencies above body eigenfrequency | Less safe for higher mass at frequencies below the wheel eigenfrequency | **Balance** the body mass  |
+
+## 4.0 Braking Investigations
+
+### 4.0.1 Specifications
+
+![image.png](assets/image%2073.png)
+
+![image.png](assets/image%2074.png)
+
+### 4.0.2 Parameters
+
+![image.png](assets/image%2075.png)
+
+MB = 5350
+
+Optimal slip = 13%, Controller Gain 20000
+
+### 4.1.0 Formulation
+
+### 4.1.1 Simulink Models
+
+![w/o ABS](assets/image%2076.png)
+
+w/o ABS
+
+![w/ ABS](assets/image%2077.png)
+
+w/ ABS
+
+![ABS Controller](assets/image%2078.png)
+
+ABS Controller
+
+![image.png](assets/image%2079.png)
+
+![image.png](assets/image%2080.png)
+
+![image.png](assets/image%2081.png)
+
+### 4.2.0 Simulation Results for w/o ABS
+
+![Stopping Distance](assets/image%2082.png)
+
+Stopping Distance
+
+![Slip (to 1s)](assets/image%2083.png)
+
+Slip (to 1s)
+
+![Slip (to 2s)](assets/image%2084.png)
+
+Slip (to 2s)
+
+![Slip (to 10s)](assets/image%2085.png)
+
+Slip (to 10s)
+
+### 4.2.1 Simulation Results for w/ ABS
+
+![Very strange error occurs when vehicle speed approaches 1 m/s. The wheel speed plummets (indicating it is locked) and then the slip jumps to 1 and the vehicle deceleration decreases slightly](assets/image%2086.png)
+
+Very strange error occurs when vehicle speed approaches 1 m/s. The wheel speed plummets (indicating it is locked) and then the slip jumps to 1 and the vehicle deceleration decreases slightly
+
+![Disabling zero cross detection also makes it so that the wheel speed overtakes the vehicle speed at one point and we get negative slip. We also observe some numerical errors](assets/image%2087.png)
+
+Disabling zero cross detection also makes it so that the wheel speed overtakes the vehicle speed at one point and we get negative slip. We also observe some numerical errors
+
+![w/o zero crossing detection](assets/image%2088.png)
+
+w/o zero crossing detection
+
+![w/ zero crossing detection](assets/image%2089.png)
+
+w/ zero crossing detection
+
+# Sources
+
+1. Audi, Sport Q4 45 e-tron Datasheet
+    
+    ![image.png](assets/image%2090.png)
+    
+    ![image.png](assets/image%2091.png)
+    
+    ![image.png](assets/image%2092.png)
+    
+2. Audi, Sport Q4 45 e-tron [Website](https://www.audi.co.uk/en/models/q4/q4-e-tron/configurator/?ulid=1743863220535&pr=F4BACM0_2025%7C5Y5Y%7CAO#layer=/uk/web/en/models/q4/q4-e-tron-overview.engine_infolayer.F4BA530PWEPYLWDM_2024.html)
+    
+    ![image.png](assets/image%2093.png)
+    
+3. EU, Annex 1, Part A. Category C1 tyres (passenger car) of [Regulation (EU) 2020/740 of the European Parliament and of the Council of 25 May 2020 on the labelling of tyres with respect to fuel efficiency and other parameters](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=uriserv%3AOJ.L_.2020.177.01.0001.01.ENG&toc=OJ%3AL%3A2020%3A177%3ATOC)
+    
+    ![image.png](assets/image%2094.png)
+    
+4. [Wikipedia](https://en.wikipedia.org/wiki/Audi_Q4_e-tron#:~:text=Its%201%2Dspeed%20gear%20is,a%20ratio%20of%2011.5%3A1.) * Needs to be vetted 
